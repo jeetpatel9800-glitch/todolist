@@ -1,0 +1,489 @@
+/* ===== GLOBAL STYLES ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated background overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* ===== APP CONTAINER ===== */
+.App {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+h1 {
+    color: #333;
+    margin: 0 0 30px 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* ===== FORM STYLES ===== */
+form {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 0;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: inherit;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+button {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 10px;
+}
+
+form button:hover {
+    background-color: #45a049;
+    /* transform: translateY(-2px); */
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+form button:active {
+    transform: translateY(0);
+}
+
+/* ===== FILTER & SORT SECTION ===== */
+.filter-sort {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.filter-sort select {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #667eea;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* ===== TODO ITEM STYLES ===== */
+.todo {
+    border-left: 5px solid #667eea;
+    padding: 16px;
+    margin: 12px 0;
+    text-align: left;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.todo:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.todo h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 18px;
+    word-break: break-word;
+}
+
+.todo p {
+    margin: 8px 0 16px 0;
+    color: #666;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.todo button {
+    padding: 8px 12px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.todo button:last-child {
+    margin-right: 0;
+}
+
+.todo button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.todo button[style*="background: #b6ab123d"] {
+    background-color: #FFD700 !important;
+    color: #333 !important;
+}
+
+.todo button[style*="background: #1168da3d"] {
+    background-color: #1168da !important;
+}
+
+.todo button[style*="background: #da11113d"] {
+    background-color: #da1111 !important;
+}
+
+/* ===== EDIT MODE ===== */
+.todo div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.todo div input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+}
+
+.todo div button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* ===== EMPTY STATE ===== */
+.no-todos {
+    padding: 40px 20px;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}
+
+/* ===== TABLET DEVICES (768px and above) ===== */
+@media (min-width: 768px) {
+    #root {
+        padding: 30px;
+        align-items: center;
+    }
+
+    .App {
+        padding: 30px;
+        margin-top: 0;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 35px;
+    }
+
+    form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 25px;
+    }
+
+    form button {
+        grid-column: 1 / -1;
+        margin-top: 15px;
+    }
+
+    .filter-sort {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .filter-sort select {
+        flex: 1;
+    }
+
+    .todo {
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .todo h3,
+    .todo p {
+        margin: 0;
+    }
+
+    .todo > div:first-child {
+        flex: 1;
+        text-align: left;
+    }
+
+    .todo div {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .todo button {
+        margin-right: 0;
+        margin-bottom: 0;
+        padding: 6px 10px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+
+/* ===== LARGE DEVICES (1024px and above) ===== */
+@media (min-width: 1024px) {
+    .App {
+        max-width: 700px;
+        padding: 35px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    form {
+        grid-template-columns: 1.5fr 1.5fr 1fr;
+        padding: 30px;
+    }
+
+    form button {
+        grid-column: 1 / -1;
+    }
+
+    .filter-sort {
+        margin-bottom: 30px;
+    }
+
+    .todo {
+        padding: 20px;
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #232526 0%, #1c1c1c 100%);
+    }
+
+    .App {
+        background: #1e1e1e;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    h1 {
+        color: #f0f0f0;
+    }
+
+    form {
+        background: #2c2c2c;
+    }
+
+    input, select {
+        background-color: #333;
+        color: #f0f0f0;
+        border: 2px solid #555;
+    }
+
+    input:focus, select:focus {
+        border-color: #8899ff;
+        box-shadow: 0 0 0 3px rgba(136, 153, 255, 0.1);
+    }
+
+    .filter-sort select {
+        background-color: #333;
+        color: #f0f0f0;
+        border: 2px solid #8899ff;
+    }
+
+    .todo {
+        background: #2c2c2c;
+        border-left: 5px solid #8899ff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .todo h3 {
+        color: #f0f0f0;
+    }
+
+    .todo p {
+        color: #bbb;
+    }
+
+    .no-todos {
+        color: #777;
+    }
+}
+
+/* ===== BACKGROUND ANIMATION KEYFRAMES ===== */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* ===== OPTIONAL: ANIMATED BACKGROUND THEMES ===== */
+/* Use these alternative background styles if you want different effects */
+
+/* Theme 1: Dark Mode Background */
+/*
+body {
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+}
+*/
+
+/* Theme 2: Ocean Blue */
+/*
+body {
+    background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
+}
+*/
+
+/* Theme 3: Sunset */
+/*
+body {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa94d 50%, #ffe66d 100%);
+}
+*/
+
+/* Theme 4: Forest Green */
+/*
+body {
+    background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+}
+*/
+
+/* Theme 5: Rose Gold */
+/*
+body {
+    background: linear-gradient(135deg, #d4949f 0%, #f9c5a9 100%);
+}
+*/
+
+/* Theme 6: Animated Gradient */
+/*
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+*/
+
+/* ===== BACKGROUND PATTERNS ===== */
+/* Dot Pattern Background (Optional) */
+/*
+body {
+    background-image: 
+        radial-gradient(circle, #667eea 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: #764ba2;
+}
+*/
+
+/* Grid Pattern Background (Optional) */
+/*
+body {
+    background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+    background-color: #667eea;
+}
+*/
+
+/* Diagonal Stripes Background (Optional) */
+/*
+body {
+    background: repeating-linear-gradient(
+        45deg,
+        #667eea,
+        #667eea 10px,
+        #764ba2 10px,
+        #764ba2 20px
+    );
+}
+*/
